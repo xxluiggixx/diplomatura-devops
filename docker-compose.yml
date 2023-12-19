@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  jenkins:
+    image: jenkins/jenkins
+    container_name: jenkins
+    restart: always
+    privileged: true
+    user: root
+    volumes:
+      - $PWD/jenkins_home:/var/jenkins_home
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    networks:
+      - net
+    depends_on:
+      - docker
+  
+  docker:
+    container_name: docker
+    image: docker:dind
+    privileged: true
+    restart: always
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client
+    environment:
+      DOCKER_TLS_CERTDIR: /certs
+    networks:
+      - net
+
+networks:
+  net:
+
+volumes:
+  jenkins-data:
+  jenkins-docker-certs:
