@@ -5,6 +5,7 @@ pipeline {
         stage('Init') {
             steps {
                 sh ''' 
+                    rm -r ReactJs
                     git clone https://github.com/xxluiggixx/ReactJs.git
                     cd ReactJs/03-counter-app
                     npm install
@@ -19,12 +20,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-            }
-        }
-        stage('Remove repository') {
-            steps {
-                sh 'cd ../../'
-                sh 'rm -r ReactJs'
             }
         }
     }
