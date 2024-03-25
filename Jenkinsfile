@@ -1,19 +1,23 @@
-# Utilizando una imagen de docker para compilar
 pipeline {
-    agent {
-                docker { image 'node:lts-buster'
-                         args ' --user root -v $PWD/webSocket:/usr/src/app -w /usr/src/app' }
-        }
+    agent any
+
     stages {
-        stage('clone') {
+        stage('Init') {
             steps {
-                sh '''
-                    rm -rf webSocket
-                    git clone https://github.com/xxluiggixx/webSocket.git
-                    cd webSocket && npm install
-                    '''
+                sh ''' 
+                    git clone https://github.com/xxluiggixx/ReactJs.git
+                '''
             }
         }
-
-    }//end stages
-}//end pipeline
+        stage('listar') {
+            steps {
+                sh 'ls -lha'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}
