@@ -2,16 +2,32 @@
 pipeline {
     agent {
                 docker { image 'node:lts-buster'
-                         args ' --user root -v $PWD/webSocket:/usr/src/app -w /usr/src/app' }
+                         args ' --user root -v $PWD:/usr/src/app -w /usr/src/app' }
+        }
+        environment {
+            FOLDER = "ReactJs/03-counter-app"
         }
     stages {
-        stage('clone') {
+        stage('Init') {
             steps {
-                sh '''
-                    rm -rf webSocket
-                    git clone https://github.com/xxluiggixx/webSocket.git
-                    cd webSocket && npm install
-                    '''
+                sh ''' 
+                    rm -r ReactJs
+                    git clone https://github.com/xxluiggixx/ReactJs.git
+                    cd $FOLDER
+                    npm install
+                '''
+            }
+        }
+        stage('test') {
+            steps {
+                dir('$FOLDER'){
+                    sh 'npm test'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+               echo 'Deploy...'
             }
         }
 

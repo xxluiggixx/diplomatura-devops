@@ -3,6 +3,7 @@ services:
   jenkins:
     build:
       context: .
+      dockerfile: ../Dockerfiles/Dockerfile_Rox_tools_plugg
     image: jenkins-docker-client
     container_name: jenkins
     restart: always
