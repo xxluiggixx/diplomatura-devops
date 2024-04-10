@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  db:
+    image: mysql
+    container_name: MySQL
+    restart: always
+    privileged: true
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pass
+      MYSQL_DATABASE: educativo
+      MYSQL_ROOT_HOST: '0.0.0.0'
+    ports:
+      - "3306:3306"
