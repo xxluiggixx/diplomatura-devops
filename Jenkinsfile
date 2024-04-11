@@ -1,7 +1,9 @@
 pipeline {
     agent any
     environment {
-            docker_user = credentials('dockerhub')
+            registry = "xxluiggixx/pin1"
+            registryCredential = 'dockerhub'
+            dockerImage = ''
         }
     stages {
         stage('Clone repositorie') {
@@ -27,19 +29,23 @@ pipeline {
         }
         stage('Build') {
             steps {
-                    sh '''
-                        ls -lh
-                        pwd
-                        docker build -t xxluiggixx/pin1:v1 .
-                    '''
+                    script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    }
             }
         }
         stage('Upload Image') {
             steps {
-                    sh '''
-                        docker login --username $docker_user --password $docker_user
-                        docker push xxluiggixx/pin1:v1
-                    '''
+                    script {
+                        docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                        }
+                    }
+            }
+        }
+        stage('Clean image') {
+            steps {
+                    sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
     }
