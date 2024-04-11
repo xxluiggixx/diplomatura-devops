@@ -13,6 +13,7 @@ pipeline {
             }
             steps {
                     sh '''
+                        rm -r PIN1
                         git clone https://github.com/EducacionMundose/PIN1.git
                         cd PIN1
                         npm install
