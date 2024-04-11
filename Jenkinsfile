@@ -18,6 +18,7 @@ pipeline {
             steps {
                 dir('$PWD'){
                     sh '''
+                        ls -lh
                         npm install
                         npm test
                     '''
