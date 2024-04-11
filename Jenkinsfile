@@ -24,6 +24,8 @@ pipeline {
             steps {
                 dir('$FOLDER'){
                     sh '''
+                        ls -lh
+                        pwd
                         docker build -t xxluiggixx/pin1:v1 .
                     '''
                 }
