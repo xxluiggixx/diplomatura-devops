@@ -8,7 +8,7 @@ pipeline {
         stage('Init') {
             steps {
                 sh ''' 
-                    #rm -r $FOLDER
+                    rm -r $FOLDER
                     git clone https://github.com/EducacionMundose/PIN1.git
                     
                 '''
