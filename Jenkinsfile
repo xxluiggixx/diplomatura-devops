@@ -8,21 +8,21 @@ pipeline {
         stage('Init') {
             steps {
                 sh ''' 
-                    rm -r $FOLDER
+                    #rm -r $FOLDER
                     git clone https://github.com/EducacionMundose/PIN1.git
-                    ls
+                    
                 '''
             }
         }
         stage('Test') {
             agent {
                 docker { image 'node:lts-buster'
-                         args ' --user root -v $PWD:/usr/src/app -w /usr/src/app'
+                         args ' --user root -v $(PWD)/$FOLDER:/usr/src/app -w /usr/src/app'
                          alwaysPull true }
             }
             steps {
                     sh '''
-                        cd $FOLDER
+                        pwd
                         ls -lh
                         npm install
                         npm test
