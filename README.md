@@ -13,3 +13,20 @@ If you want a nginx proxy follow:
 - DNS mockup
  * https://nip.io/
  * https://sslip.io/
+
+ ## Repositorie for practices
+ https://gitlab.com/roxsross-public/retail-store-app-cicd
+ https://github.com/dockersamples
+
+
+##Bash scrip
+#!/bin/bash
+directories=$(ls)
+for directory in $directories
+    do
+    if [ -d "$(pwd)/$directory" ] 
+    then
+            echo "Compilo la imagen del docker"
+    fi
+    echo "no es directorio $(pwd)/$directory"
+    done
