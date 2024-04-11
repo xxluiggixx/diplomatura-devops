@@ -5,7 +5,7 @@ pipeline {
             docker_user = credentials('dockerhub')
         }
     stages {
-        stage('clone repositorie') {
+        stage('Init') {
             steps {
                 sh ''' 
                     rm -r $FOLDER
@@ -13,7 +13,7 @@ pipeline {
                 '''
             }
         }
-        stage('Init and test') {
+        stage('Test') {
             agent {
                 docker { image 'node:lts-buster'
                          args ' --user root -v $PWD:/usr/src/app -w /usr/src/app' }
