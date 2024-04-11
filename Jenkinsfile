@@ -16,10 +16,10 @@ pipeline {
                          alwaysPull true }
             }
             steps {
-                dir('$PWD'){
+                dir('$PWD/PIN1'){
                     sh '''
-                        npm install ./PIN1
-                        npm test ./PIN1
+                        npm install 
+                        npm test 
                     '''
                 }
                     
