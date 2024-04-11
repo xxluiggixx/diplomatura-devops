@@ -17,8 +17,7 @@ pipeline {
             }
             steps {
                     sh '''
-                        cd /usr/src/app
-                        ls -lh /usr/src/app
+                        cd $pwd
                         npm install
                         npm test
                     '''
