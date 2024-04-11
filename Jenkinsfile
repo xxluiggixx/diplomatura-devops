@@ -17,7 +17,7 @@ pipeline {
         stage('Test') {
             agent {
                 docker { image 'node:lts-buster'
-                         args ' --user root -v $(PWD)/$FOLDER:/usr/src/app -w /usr/src/app'
+                         args ' --user root -v $PWD:/usr/src/app -w /usr/src/app'
                          alwaysPull true }
             }
             steps {
