@@ -20,12 +20,10 @@ pipeline {
                          alwaysPull true }
             }
             steps {
-                dir('$FOLDER'){
                     sh '''
                         npm install
                         npm test
                     '''
-                }
             }
         }
         stage('Build') {
