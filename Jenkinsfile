@@ -16,11 +16,13 @@ pipeline {
                          alwaysPull true }
             }
             steps {
+                dir('$PWD'){
                     sh '''
-                        cd $pwd
                         npm install
                         npm test
                     '''
+                }
+                    
             }
         }
         stage('Build') {
