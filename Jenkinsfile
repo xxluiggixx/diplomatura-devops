@@ -5,6 +5,11 @@ pipeline {
             docker_user = credentials('dockerhub')
         }
     stages {
+        stage('Clone repositorie') {
+            steps {
+                git 'https://github.com/EducacionMundose/PIN1.git'
+            }
+        }
         stage('Test') {
             agent {
                 docker { image 'node:lts-buster'
@@ -13,9 +18,8 @@ pipeline {
             }
             steps {
                     sh '''
-                        rm -r PIN1
-                        git clone https://github.com/EducacionMundose/PIN1.git
-                        cd PIN1
+                        cd /usr/src/app
+                        ls -lh
                         npm install
                         npm test
                     '''
