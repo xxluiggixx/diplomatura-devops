@@ -8,6 +8,7 @@ pipeline {
         stage('clone repositorie') {
             steps {
                 sh ''' 
+                    rm -r $FOLDER
                     git clone https://github.com/EducacionMundose/PIN1.git
                 '''
             }
