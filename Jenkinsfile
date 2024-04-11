@@ -1,25 +1,37 @@
 pipeline {
     agent any
-
+    environment {
+            FOLDER = "PIN1"
+        }
     stages {
-        stage('Init') {
+        stage('clone repositorie') {
             steps {
                 sh ''' 
-                    rm -r ReactJs
-                    git clone https://github.com/xxluiggixx/ReactJs.git
-                    cd ReactJs/03-counter-app
-                    npm install
+                    git clone https://github.com/EducacionMundose/PIN1.git
                 '''
             }
         }
-        stage('test') {
+        stage('Init and test') {
+            agent {
+                docker { image 'node:lts-buster'
+                         args ' --user root -v $PWD:/usr/src/app -w /usr/src/app' }
+            }
             steps {
-                sh 'npm test'
+                dir('$FOLDER'){
+                    sh '''
+                        npm install
+                        npm test
+                    '''
+                }
             }
         }
-        stage('Deploy') {
+        stage('Build') {
             steps {
-                echo 'Deploying....'
+                dir('$FOLDER'){
+                    sh '''
+                        docker build -t xxluiggixx/pin1:v1 .
+                    '''
+                }
             }
         }
     }
