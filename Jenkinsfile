@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
             FOLDER = "PIN1"
+            docker_user = credentials('dockerhub')
         }
     stages {
         stage('clone repositorie') {
@@ -32,6 +33,14 @@ pipeline {
                         docker build -t xxluiggixx/pin1:v1 .
                     '''
                 }
+            }
+        }
+        stage('Upload Image') {
+            steps {
+                    sh '''
+                        docker login --username $docker_user --password $docker_user
+                        docker push xxluiggixx/pin1:v1
+                    '''
             }
         }
     }
