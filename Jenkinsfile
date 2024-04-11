@@ -34,6 +34,11 @@ pipeline {
                     }
             }
         }
+        stage('Scan Vulnerability'){
+            steps {
+                sh "docker run  -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --severity=critical $registry:$BUILD_NUMBER"
+            }
+        }
         stage('Upload Image') {
             steps {
                     script {
