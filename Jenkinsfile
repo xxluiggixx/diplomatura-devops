@@ -18,9 +18,8 @@ pipeline {
             steps {
                 dir('$PWD'){
                     sh '''
-                        ls -lh
-                        npm install
-                        npm test
+                        npm install ./PIN1
+                        npm test ./PIN1
                     '''
                 }
                     
