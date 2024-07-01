@@ -10,10 +10,10 @@ sudo ./aws/install
 echo "Installing kubectl"
 curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.26.2/2023-03-17/bin/linux/amd64/kubectl
 chmod +x ./kubectl
-cp ./kubectl /usr/local/bin/kubectl 
+sudo cp ./kubectl /usr/local/bin/kubectl 
 kubectl version --client
 
-echo "Installing ekctl"
+echo "Installing eksctl"
 # Download EKS CLI https://github.com/weaveworks/eksctl
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
@@ -35,16 +35,14 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo usermod -a -G docker ec2-user
-newgrp docker
+sudo usermod -a -G docker ubuntu
 
 echo "Installing docker compose"
-wget https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) 
+wget https://github.com/docker/compose/releases/download/v2.28.1/docker-compose-$(uname -s)-$(uname -m) 
 sudo mv docker-compose-$(uname -s)-$(uname -m) /usr/local/bin/docker-compose
 sudo chmod -v +x /usr/local/bin/docker-compose
 sudo systemctl enable docker.service
 sudo systemctl start docker.service
-
 
 echo "Installing Helm"
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
