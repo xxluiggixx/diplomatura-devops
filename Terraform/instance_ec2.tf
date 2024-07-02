@@ -6,7 +6,7 @@
 
 resource "aws_iam_instance_profile" "ec2-admin" {
   name = "ec2-admin"
-  role = "${aws_iam_role.ec2-admin.name}"
+  role = "${aws_iam_role.ec2_admin.name}"
 }
 
 resource "aws_instance" "mundose_bastion_inst" {
@@ -17,24 +17,23 @@ resource "aws_instance" "mundose_bastion_inst" {
   key_name               = "PIN"
   vpc_security_group_ids = ["sg-0f9a28401f311c339"]
   tags = {
-    Name    = "PIN-instance"
+    Name    = "PIN-Bastion-instance"
   }
 
   provisioner "file" {
-    source      = "./Resources/ec2_user_data.sh"
-    destination = "/tmp/ec2_user_data.sh"
+    source      = "./Resources/"
+    destination = "/tmp/"
   }
-
   provisioner "remote-exec" {
     inline = [
-      "chmod u+x /tmp/ec2_user_data.sh",
-      "sudo /tmp/ec2_user_data.sh",
+      "chmod u+x /tmp/ec2_user_data.sh && sudo /tmp/ec2_user_data.sh",
+      "chmod u+x /tmp/eksctl.sh && sudo /tmp/eksctl.sh",
       "echo 'Empezar otro script'"
     ]
   }
   connection {
     user        = var.user
-    private_key = file("./Resources/PIN1.pem")
+    private_key = file("./Resources/PIN.pem")
     host        = self.public_ip
   }
 }
