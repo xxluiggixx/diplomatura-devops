@@ -28,7 +28,7 @@ resource "aws_instance" "mundose_bastion_inst" {
     inline = [
       "chmod u+x /tmp/ec2_user_data.sh && sudo /tmp/ec2_user_data.sh",
       "chmod u+x /tmp/eksctl.sh && sudo /tmp/eksctl.sh",
-      "echo 'Empezar otro script'"
+      "chmod u+x /tmp/pod_creations.sh && sudo /tmp/pod_creations.sh"
     ]
   }
   connection {
