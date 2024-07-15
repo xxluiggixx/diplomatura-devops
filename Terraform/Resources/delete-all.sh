@@ -6,10 +6,10 @@ kubectl delete -f /tmp/nginx-deploy.yml
 echo "############################################"
 echo "Delete Prometheus and grafana"
 
-helm uninstall prometheus --namespace 
-prometheus kubectl delete ns prometheus 
-helm uninstall grafana --namespace 
-grafana kubectl delete ns grafana 
+helm uninstall prometheus --namespace prometheus 
+kubectl delete ns prometheus 
+helm uninstall grafana --namespace grafana 
+kubectl delete ns grafana 
 
 
 echo "############################################"

@@ -3,7 +3,7 @@
 # and modified according to my needs
 # Variables
 CLUSTER_NAME=eks-mundos-e
-AWS_REGION=us-east-1
+export AWS_REGION=us-east-1
 
 # Set AWS credentials 
 aws sts get-caller-identity >> /dev/null
