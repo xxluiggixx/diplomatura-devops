@@ -1,0 +1,4 @@
+If error with helm gragana
+kubectl delete clusterrolebinding grafana-clusterrolebinding
+and exec again
+helm install grafana grafana/grafana --namespace grafana --set persistence.storageClassName="gp2" --set persistence.enabled=true --set adminPassword='EKS!sAWSome' --values /tmp/grafana.yml --set service.type=LoadBalancer
